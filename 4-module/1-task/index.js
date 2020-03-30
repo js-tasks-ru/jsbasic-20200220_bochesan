@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /**
  * Генерация HTML списка друзей
  * @param {Object[]} friends
