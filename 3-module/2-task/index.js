@@ -4,15 +4,23 @@
  * @returns {{min:number, max:number}}  объект
  */
 function getMinMax(str) {
-  let arr = str.split(" ");
-  arr = arr.join(",");
-  arr = arr.split(",");
+  let result = {
+    min: 0,
+    max: 0
+  };
 
-  arr.sort((a, b) => a - b);
+  str = str.split(',').join(' ');
+  let spliting = str.split(' ');
 
-  let result = {};
-  result.min = +arr[0];
-  result.max = +arr[arr.length - 1];
-
+  for (let item of spliting) {
+    if (Number(item)) {
+      if (Number(item) > result.max) {
+        result.max = Number(item);
+      }
+      if (Number(item) < result.min) {
+        result.min = Number(item);
+      }
+    }
+  }
   return result;
 }
