@@ -1,4 +1,4 @@
-## Функция highlight ##
+# Функция highlight 
 
 Напишите функцию highlight, которая для каждой строки tr таблицы:
 - Проставит класс available/unavailable, в зависимости от значения атрибута data-available у ячейки Status

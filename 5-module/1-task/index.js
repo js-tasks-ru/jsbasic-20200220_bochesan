@@ -1,28 +1,45 @@
+const FIRST_COLUMN = 1;
+const SECOND_COLUMN = 2;
+const THIRD_COLUMN = 3;
+
 /**
  * Метод устанавливает необходимые по условию аттрибуты таблице
  * @param {Element} table
  */
 function highlight(table) {
-  for (let i = 0; i < table.tBodies[0].rows.length; i++) {
-    const tableRow = table.tBodies[0].rows[i];
+  const actions = {
+    [THIRD_COLUMN]: (root, td) => {
+      if (td.dataset.available === 'true') {
+        root.classList.toggle('available', true);
+      } else if (td.dataset.available === 'false') {
+        root.classList.toggle('unavailable', true);
+      } else if (!td.hasAttribute('data-available')) {
+        root.hidden = true;
+      }
+    },
+    [SECOND_COLUMN]: (root, td) => {
+      if (td.textContent === 'm') {
+        root.classList.toggle('male', true);
+      } else if (td.textContent === 'f') {
+        root.classList.toggle('female', true);
+      }
+    },
+    [FIRST_COLUMN]: (root, td) => {
+      const age = parseInt(td.textContent, 10);
 
-    if (!tableRow.cells[3].dataset.available) {
-      tableRow.setAttribute("hidden", "true");
-    } else if (tableRow.cells[3].dataset.available == "true") {
-      tableRow.classList.add("available");
-    } else if (tableRow.cells[3].dataset.available == "false") {
-      tableRow.classList.add("unavailable");
-    }
+      if (age < 18) {
+        root.style.textDecoration = 'line-through';
+      }
+    },
+  };
 
-    if (tableRow.cells[2].innerText == "m") {
-      tableRow.classList.add("male");
-    } else if (tableRow.cells[2].innerText == "f") {
-      tableRow.classList.add("female");
-    }
+  for (const tr of table.rows) {
+    Array.from(tr.cells).forEach((td, index) => {
+      const fn = actions[index];
 
-    if (+tableRow.cells[1].innerText < 18) {
-      tableRow.style.textDecoration = "line-through";
-    }
-
+      if (typeof fn === 'function') {
+        fn(tr, td);
+      }
+    });
   }
 }
