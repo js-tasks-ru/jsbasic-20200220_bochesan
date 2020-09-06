@@ -4,6 +4,19 @@
  * @returns {{min:number, max:number}}  объект
  */
 function getMinMax(str) {
+  // First variant
+  // let arr = str.split(" ");
+  // arr = arr.join(",");
+  // arr = arr.split(",");
+
+  // arr.sort((a, b) => a - b);
+
+  // let result = {};
+  // result.min = +arr[0];
+  // result.max = +arr[arr.length - 1];
+
+  // return result;
+
   let result = {
     min: 0,
     max: 0
